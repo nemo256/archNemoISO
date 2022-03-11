@@ -1,7 +1,7 @@
 arch-install-scripts
 base
 
-# Custom packages to bootstrap
+# Custom packages
 alsa-firmware
 alsa-utils
 asoundconf
