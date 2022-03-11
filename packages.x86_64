@@ -6,7 +6,7 @@ b43-fwcutter
 base
 bind-tools
 brltty
-broadcom-wl
+broadcom-wl-dkms
 btrfs-progs
 clonezilla
 cloud-init
@@ -134,7 +134,6 @@ bison
 bluez
 bluez-utils
 brightnessctl
-broadcom-wl-dkms
 btrfs-progs
 dkms
 dmidecode
