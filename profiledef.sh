@@ -2,9 +2,9 @@
 # shellcheck disable=SC2034
 
 iso_name="archnemo"
-iso_label="Arch Nemo"
+iso_label="archnemo"
 iso_publisher="Amine Neggazi <https://amineneggazi.vercel.app>"
-iso_application="Arch Nemo"
+iso_application="archnemo"
 iso_version="0.0.1"
 install_dir="arch"
 buildmodes=('iso')
@@ -16,9 +16,10 @@ airootfs_image_tool_options=('-comp' 'xz' '-Xbcj' 'x86' '-b' '1M' '-Xdict-size' 
 file_permissions=(
   ["/etc/shadow"]="0:0:400"
   ["/root"]="0:0:750"
-  ["/root/install.sh"]="0:0:755"
+  ["/root/.install.sh"]="0:0:755"
   ["/root/.automated_script.sh"]="0:0:755"
   ["/usr/local/bin/choose-mirror"]="0:0:755"
   ["/usr/local/bin/Installation_guide"]="0:0:755"
   ["/usr/local/bin/livecd-sound"]="0:0:755"
+  ["/var/lib/iwd"]="0:0:700"
 )

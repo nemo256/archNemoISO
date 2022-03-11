@@ -1,6 +1,7 @@
 alsa-utils
 amd-ucode
 arch-install-scripts
+archlinux-keyring
 archinstall
 b43-fwcutter
 base
@@ -197,7 +198,6 @@ ncmpcpp
 neofetch
 neovim
 net-tools
-networkmanager
 newsboat
 nmap
 nodejs
@@ -206,6 +206,7 @@ npm
 nuspell
 os-prober
 pacman
+pacman-contrib
 patch
 pax-utils
 pkgconf

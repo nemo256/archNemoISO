@@ -4,6 +4,7 @@ base
 # Custom packages
 alsa-firmware
 alsa-utils
+archlinux-keyring
 asoundconf
 aspell
 autoconf
@@ -49,6 +50,7 @@ hspell
 htop
 hunspell
 irssi
+iwd
 libcap
 libcap-ng
 libconfig
@@ -79,7 +81,6 @@ ncmpcpp
 neofetch
 neovim
 net-tools
-networkmanager
 newsboat
 nmap
 nodejs
@@ -88,6 +89,7 @@ npm
 nuspell
 os-prober
 pacman
+pacman-contrib
 patch
 pax-utils
 pkgconf
