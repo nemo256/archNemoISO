@@ -2,7 +2,7 @@
 # shellcheck disable=SC2034
 
 iso_name="archNemo"
-iso_label="archNemo_0.0.1"
+iso_label="archNemo"
 iso_publisher="Amine Neggazi <https://amineneggazi.vercel.app>"
 iso_application="Arch Nemo"
 iso_version="0.0.1"
