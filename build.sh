@@ -10,9 +10,18 @@ rootD=$currWD/airootfs/root
 
 # Cleaning previous build (if there were any)
 echo "Cleaning up..."
-[[ -d out ]] && rm -fvr out
-[[ -d work ]] && rm -fvr work
+[[ -d out ]] && rm -fr out
+[[ -d work ]] && rm -fr work
 echo "Cleanup complete!"
+
+# echo "Preparing custom repo..."
+# [[ ! -d /tmp/blankdb ]] && mkdir /tmp/blankdb
+# pacman -Syw --cachedir repo --dbpath /tmp/blankdb --noconfirm --needed - < packages.x86_64
+# [[ -f repo/custom.db.tar.gz ]] && rm -fr repo/custom*
+# repo-add ./repo/custom.db.tar.gz ./repo/*.zst
+# repo-add ./repo/custom.db.tar.gz ./repo/*.xz
+# repo-add ./repo/custom.db.tar.gz ./repo/*.gz
+# echo "Custom repo is up to date!"
 
 # Preparing custom configuration files (dotfiles)
 cd $rootD
