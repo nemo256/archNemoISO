@@ -19,12 +19,12 @@ echo -ne "
 
 "
 
-echo -ne "Please enter your password: "
-read -s PASSWORD
+echo -ne "
+                               Press any key to continue...
+"
 
 # Setup configuration
 USERNAME=root
-TOKEN=<Your github PAT (personal access token)>
 NAME_OF_MACHINE=macbook
 DISK=/dev/sda
 MOUNT_OPTIONS="noatime,compress=zstd,ssd,commit=120"
@@ -258,6 +258,7 @@ arch-chroot /mnt stow alsa
 arch-chroot /mnt stow bin
 arch-chroot /mnt stow bash
 arch-chroot /mnt stow dunst
+arch-chroot /mnt stow git
 arch-chroot /mnt stow gtk-2.0
 arch-chroot /mnt stow gtk-3.0
 arch-chroot /mnt stow htop
