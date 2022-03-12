@@ -1,29 +1,30 @@
 #!/usr/bin/env bash
 
-# logo
+# Set a bold custom terminus font
+setfont ter-v32b
+
+# Logo
 clear
 echo -ne "
---------------------------------------------------------------------------
-  ░█████╗░██████╗░░█████╗░██╗░░██╗  ███╗░░██╗███████╗███╗░░░███╗░█████╗░
-  ██╔══██╗██╔══██╗██╔══██╗██║░░██║  ████╗░██║██╔════╝████╗░████║██╔══██╗
-  ███████║██████╔╝██║░░╚═╝███████║  ██╔██╗██║█████╗░░██╔████╔██║██║░░██║
-  ██╔══██║██╔══██╗██║░░██╗██╔══██║  ██║╚████║██╔══╝░░██║╚██╔╝██║██║░░██║
-  ██║░░██║██║░░██║╚█████╔╝██║░░██║  ██║░╚███║███████╗██║░╚═╝░██║╚█████╔╝
-  ╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝  ╚═╝░░╚══╝╚══════╝╚═╝░░░░░╚═╝░╚════╝░
---------------------------------------------------------------------------
-                    Automated Arch Linux Installer
---------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+          ░█████╗░██████╗░░█████╗░██╗░░██╗  ███╗░░██╗███████╗███╗░░░███╗░█████╗░
+          ██╔══██╗██╔══██╗██╔══██╗██║░░██║  ████╗░██║██╔════╝████╗░████║██╔══██╗
+          ███████║██████╔╝██║░░╚═╝███████║  ██╔██╗██║█████╗░░██╔████╔██║██║░░██║
+          ██╔══██║██╔══██╗██║░░██╗██╔══██║  ██║╚████║██╔══╝░░██║╚██╔╝██║██║░░██║
+          ██║░░██║██║░░██║╚█████╔╝██║░░██║  ██║░╚███║███████╗██║░╚═╝░██║╚█████╔╝
+          ╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝  ╚═╝░░╚══╝╚══════╝╚═╝░░░░░╚═╝░╚════╝░
+------------------------------------------------------------------------------------------
+                              Automated Arch Linux Installer
+------------------------------------------------------------------------------------------
+
 "
 
 echo -ne "Please enter your password: "
-read -s password
+read -s PASSWORD
 
-echo -ne "\nPlease enter your Github PAT: "
-read PAT
-
+# Setup configuration
 USERNAME=root
-TOKEN=$PAT
-PASSWORD=$password
+TOKEN=<Your github PAT (personal access token)>
 NAME_OF_MACHINE=macbook
 DISK=/dev/sda
 MOUNT_OPTIONS="noatime,compress=zstd,ssd,commit=120"
@@ -32,26 +33,21 @@ TIMEZONE=Africa/Algiers
 KEYMAP=us
 
 echo -ne "
---------------------------------------------------------------------------
-                    Setting up mirrors for faster downloads
---------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+                                  Setting Up Mirrors
+------------------------------------------------------------------------------------------
 "
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 reflector -a 48 -c France,Germany -f 5 -l 20 --sort rate --save /etc/pacman.d/mirrorlist
 mkdir /mnt &>/dev/null # Hiding error message if any
+
 echo -ne "
---------------------------------------------------------------------------
-                    Installing Prerequisites
---------------------------------------------------------------------------
-"
-pacman -S --noconfirm --needed gptfdisk btrfs-progs glibc
-echo -ne "
---------------------------------------------------------------------------
-                    Formating Disk
---------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+                                   Formating Disks
+------------------------------------------------------------------------------------------
 "
 umount -A --recursive /mnt # make sure everything is unmounted before we start
-# disk prep
+# Disk prep
 sgdisk -Z ${DISK} # zap all on disk
 sgdisk -a 2048 -o ${DISK} # new gpt disk 2048 alignment
 
@@ -67,11 +63,10 @@ partprobe ${DISK} # reread partition table to ensure it is correct
 
 # Make filesystems
 echo -ne "
---------------------------------------------------------------------------
-                    Creating Filesystems
---------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+                                  Creating Filesystems
+------------------------------------------------------------------------------------------
 "
-
 partition2=${DISK}2
 partition3=${DISK}3
 
@@ -90,35 +85,39 @@ if ! grep -qs '/mnt' /proc/mounts; then
     echo "Rebooting in 1 Second ..." && sleep 1
     reboot now
 fi
+
 echo -ne "
---------------------------------------------------------------------------
-                    Arch Install on Main Drive
---------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+                                    Arch installation
+------------------------------------------------------------------------------------------
 "
-pacstrap /mnt base base-devel linux linux-firmware neovim sudo archlinux-keyring wget libnewt --noconfirm --needed
-echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
-cp -R ${SCRIPT_DIR} /mnt/root/archNemo
-cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+while read line
+do
+  echo "Pacstraping: ${line}"
+  sudo pacstrap /mnt ${line}
+done < packages.x86_64
 
 genfstab -L /mnt >> /mnt/etc/fstab
 echo " 
   Generated /etc/fstab:
 "
 cat /mnt/etc/fstab
+
 echo -ne "
---------------------------------------------------------------------------
-                    GRUB BIOS Bootloader Install & Check
---------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+                          GRUB BIOS Bootloader Install And Check
+------------------------------------------------------------------------------------------
 "
 if [[ ! -d "/sys/firmware/efi" ]]; then
     grub-install --boot-directory=/mnt/boot ${DISK}
+    echo "Installed bootloader for BIOS!"
 else
-    pacstrap /mnt efibootmgr --noconfirm --needed
+    echo "Skipping (UEFI)!"
 fi
 echo -ne "
---------------------------------------------------------------------------
-                    Checking for low memory systems <8G
---------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+                           Checking For Low Memory Systems <8Gb
+------------------------------------------------------------------------------------------
 "
 TOTAL_MEM=$(cat /proc/meminfo | grep -i 'memtotal' | grep -o '[[:digit:]]*')
 if [[  $TOTAL_MEM -lt 8000000 ]]; then
@@ -133,3 +132,253 @@ if [[  $TOTAL_MEM -lt 8000000 ]]; then
     # The line below is written to /mnt/ but doesn't contain /mnt/, since it's just / for the system itself.
     echo "/opt/swap/swapfile	none	swap	sw	0	0" >> /mnt/etc/fstab # add swap to fstab, so it KEEPS working after installation.
 fi
+
+echo -ne "
+------------------------------------------------------------------------------------------
+                                     Network Setup
+------------------------------------------------------------------------------------------
+"
+arch-chroot /mnt ping -c 3 google.com
+
+echo -ne "
+------------------------------------------------------------------------------------------
+                                Setup Language And Locale
+------------------------------------------------------------------------------------------
+"
+arch-chroot /mnt sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+arch-chroot /mnt locale-gen
+arch-chroot /mnt timedatectl --no-ask-password set-timezone ${TIMEZONE}
+arch-chroot /mnt timedatectl --no-ask-password set-ntp 1
+arch-chroot /mnt localectl --no-ask-password set-locale LANG="en_US.UTF-8" LC_TIME="en_US.UTF-8"
+arch-chroot /mnt ln -s /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
+# Set keymaps
+arch-chroot /mnt localectl --no-ask-password set-keymap ${KEYMAP}
+
+# Add sudo no password rights
+arch-chroot /mnt sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
+arch-chroot /mnt sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
+
+# Add parallel downloading
+arch-chroot /mnt sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
+
+# Enable multilib
+arch-chroot /mnt sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+arch-chroot /mnt pacman -Sy --noconfirm --needed
+
+echo -ne "
+------------------------------------------------------------------------------------------
+                                     Adding User
+------------------------------------------------------------------------------------------
+"
+arch-chroot /mnt chpasswd <<< "${USERNAME}:${PASSWORD}"
+echo "${NAME_OF_MACHINE}" > /mnt/etc/hostname
+
+if [[ -d "/sys/firmware/efi" ]]; then
+    arch-chroot /mnt grub-install --efi-directory=/boot ${DISK} --recheck
+fi
+
+echo -ne "
+------------------------------------------------------------------------------------------
+                                 Creating GRUB Boot Menu
+------------------------------------------------------------------------------------------
+"
+# Optimize grub for macbook air and skip through it (I don't multiboot)
+arch-chroot /mnt sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="[^"]*/& rootflags=data=writeback libata.force=1:noncq/' /etc/default/grub
+arch-chroot /mnt sed -i 's/^GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
+arch-chroot /mnt sed -i 's/^#GRUB_DISABLE_SUBMENU=y/GRUB_DISABLE_SUBMENU=y/' /etc/default/grub
+
+# Updating grub
+echo -e "Updating grub..."
+arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
+echo -e "All set!"
+
+echo -ne "
+------------------------------------------------------------------------------------------
+                               Managing Essential Services
+------------------------------------------------------------------------------------------
+"
+arch-chroot /mnt systemctl disable --now transmission.service
+echo "  Transmission disabled"
+# arch-chroot /mnt systemctl disable dhcpcd.service
+# echo "  DHCP disabled"
+# arch-chroot /mnt systemctl stop dhcpcd.service
+# echo "  DHCP stopped"
+# arch-chroot /mnt systemctl enable NetworkManager.service
+# echo "  NetworkManager enabled"
+
+echo -ne "
+------------------------------------------------------------------------------------------
+                              Changing Default Console Font
+------------------------------------------------------------------------------------------
+"
+echo -ne 'KEYMAP="us"
+FONT="ter-v32b"
+' > /mnt/etc/vconsole.conf
+
+echo -ne "
+------------------------------------------------------------------------------------------
+                                   Github Configuration      
+------------------------------------------------------------------------------------------
+"
+# Adding the credentials file
+echo -ne "https://nemo256:${TOKEN}@github.com" > /mnt/${USERNAME}/.git-credentials
+
+echo -ne "
+------------------------------------------------------------------------------------------
+                                Installing Dwm, St, Dmenu...
+------------------------------------------------------------------------------------------
+"
+# Building and installing using make
+arch-chroot /mnt cd .build/dwm && make clean install
+arch-chroot /mnt cd ../st && make clean install
+arch-chroot /mnt cd ../dmenu && make clean install
+arch-chroot /mnt cd ../slock && make clean install
+arch-chroot /mnt cd ../slstatus && make clean install
+arch-chroot /mnt cd ../grabc && make && make install
+arch-chroot /mnt cd ../tremc && make install
+arch-chroot /mnt yarn global add @aweary/alder
+arch-chroot /mnt yarn global add weather-cli
+
+echo -ne "
+------------------------------------------------------------------------------------------
+                                Stowing Configuration Files
+------------------------------------------------------------------------------------------
+"
+# Removing default files
+rm -fvr /mnt/${USERNAME}/.bash*
+rm -fvr /mnt/${USERNAME}/.gitconfig
+rm -fvr /mnt/${USERNAME}/.config/*
+
+# Dotfiles directory
+arch-chroot /mnt cd $HOME/.dotfiles
+
+# Stowing configuration files
+arch-chroot /mnt stow abook
+arch-chroot /mnt stow alsa
+arch-chroot /mnt stow bin
+arch-chroot /mnt stow bash
+arch-chroot /mnt stow dunst
+arch-chroot /mnt stow gtk-2.0
+arch-chroot /mnt stow gtk-3.0
+arch-chroot /mnt stow htop
+arch-chroot /mnt stow irssi
+arch-chroot /mnt stow mbsync
+arch-chroot /mnt stow mimeapps
+arch-chroot /mnt stow mpd
+arch-chroot /mnt stow mpv
+arch-chroot /mnt stow mutt
+arch-chroot /mnt stow ncmpcpp
+arch-chroot /mnt stow neofetch
+arch-chroot /mnt stow newsboat
+arch-chroot /mnt stow notmuch
+arch-chroot /mnt stow nvim
+arch-chroot /mnt stow ranger
+arch-chroot /mnt stow transmission-daemon
+arch-chroot /mnt stow tremc
+arch-chroot /mnt stow weather-cli-nodejs
+arch-chroot /mnt stow xinit
+arch-chroot /mnt stow yarn
+arch-chroot /mnt stow zathura
+
+echo -ne "
+------------------------------------------------------------------------------------------
+                                   Neovim Configuration
+------------------------------------------------------------------------------------------
+"
+# Adding vim-plug
+curl -fLo /mnt/${USERNAME}/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# Installing neovim plugins
+arch-chroot /mnt nvim -c 'PlugInstall | q! | q!'
+
+echo -ne "
+------------------------------------------------------------------------------------------
+                                   Ranger Configuration
+------------------------------------------------------------------------------------------
+"
+# Adding devicons to ranger
+git clone https://github.com/alexanderjeurissen/ranger_devicons \
+  ~/.config/ranger/plugins/ranger_devicons
+
+echo -ne "
+------------------------------------------------------------------------------------------
+                                   Firefox Configuration
+------------------------------------------------------------------------------------------
+"
+# Saving path to prefs.js file
+# prefs=$(find /mnt/${USERNAME}/.mozilla/ -name '*prefs.js')
+
+# Adding magnet link support
+# echo -ne '
+# user_pref("network.protocol-handler.expose.magnet", false);
+# ' >> $prefs
+
+echo -ne "
+------------------------------------------------------------------------------------------
+                                    Fonts Configuration
+------------------------------------------------------------------------------------------
+"
+# Adding nerd font (Droid Sans Mono)
+# mkdir -p /mnt/${USERNAME}/.fonts
+# cd /mnt/${USERNAME}/.fonts && curl -fLo "Fira Code Bold Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/FiraCode/Bold/complete/Fira%20Code%20Bold%20Nerd%20Font%20Complete.ttf
+
+# Update fonts
+# arch-chroot /mnt fc-cache -f -v
+
+# Return back to home directory
+# cd $HOME
+
+echo -ne "
+------------------------------------------------------------------------------------------
+                                    Slock Configuration
+------------------------------------------------------------------------------------------
+"
+# Adding slock service
+echo -ne '[Unit]
+Description=Lock X session using slock for user %i
+Before=sleep.target
+
+[Service]
+User=%i
+Environment=DISPLAY=:0
+ExecStartPre=/usr/bin/xset dpms force suspend
+ExecStart=/usr/local/bin/slock
+
+[Install]
+WantedBy=sleep.target
+' > /mnt/etc/systemd/system/slock@.service
+
+echo -ne "
+------------------------------------------------------------------------------------------
+                               Updating Touchpad Configuration
+------------------------------------------------------------------------------------------
+"
+# Touchpad configuration
+echo -ne 'Section "InputClass"
+    Identifier "libinput touchpad catchall"
+    MatchIsTouchpad "on"
+    MatchDevicePath "/dev/input/event*"
+    Option "Tapping" "True"
+    Option "TappingDrag" "True"
+    Option "ScrollMethod" "Twofinger"
+    Option "NaturalScrolling" "False"
+    Option "DisableWhileTyping" "False"
+    Driver "libinput"
+EndSection
+' > /mnt/etc/X11/xorg.conf.d/40-libinput.conf
+
+echo -ne "
+------------------------------------------------------------------------------------------
+                               Re-enabling Essential Services
+------------------------------------------------------------------------------------------
+"
+# Enabling slock to lock screen on suspend / sleep
+arch-chroot /mnt systemctl enable slock@$(whoami).service
+echo "  Slock enabled!"
+
+echo -ne "
+------------------------------------------------------------------------------------------
+                                         Cleaning
+------------------------------------------------------------------------------------------
+"

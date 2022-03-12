@@ -38,6 +38,7 @@ gcr
 gettext
 git
 glib2
+glibc
 go
 gptfdisk
 grep

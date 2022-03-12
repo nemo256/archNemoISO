@@ -110,7 +110,7 @@ udftools
 usb_modeswitch
 usbmuxd
 usbutils
-vim
+neovim
 virtualbox-guest-utils-nox
 vpnc
 wireless-regdb
@@ -123,27 +123,22 @@ zsh
 
 # Custom packages
 alsa-firmware
-alsa-utils
 asoundconf
 aspell
 autoconf
 automake
 cmake
-base
 binutils
 bison
 bluez
 bluez-utils
 brightnessctl
-btrfs-progs
 dkms
 dmidecode
-dnsmasq
 docker
 dsniff
 dunst
 edk2-ovmf
-efibootmgr
 exa
 fakeroot
 file
@@ -158,17 +153,14 @@ git
 glib2
 glibc
 go
-gptfdisk
 grep
 groff
-grub
 gtk2
 gzip
 hping
 hspell
 htop
 hunspell
-irssi
 libcap
 libcap-ng
 libconfig
@@ -180,8 +172,6 @@ libvoikko
 libx11
 libxinerama
 libxft
-linux
-linux-firmware
 linux-headers
 lsof
 m4
@@ -191,16 +181,12 @@ meson
 mpc
 mpd
 mpv
-mtools
 multipath-tools
-nano
 ncdu
 ncmpcpp
 neofetch
-neovim
 net-tools
 newsboat
-nmap
 nodejs
 noto-fonts
 npm
@@ -214,15 +200,10 @@ pkgconf
 pulsemixer
 python-pip
 ranger
-reflector
-rsync
 scrot
 sed
 stow
-sudo
 sxiv
-tcpdump
-terminus-font
 the_silver_searcher
 transmission-cli
 tree
@@ -235,7 +216,6 @@ uthash
 vi
 webkit2gtk
 which
-wireless_tools
 xclip
 xmlstarlet
 xorg
@@ -245,3 +225,11 @@ yt-dlp
 zathura
 zathura-pdf-mupdf
 zip
+
+# Drivers
+libva-intel-driver
+libvdpau-va-gl
+libva-intel-driver
+libva-utils
+vulkan-intel
+xf86-video-amdgpu

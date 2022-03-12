@@ -1,0 +1,18 @@
+[submodule "airootfs/root/.build/abook"]
+	path = airootfs/root/.build/abook
+	url = https://github.com/hhirsch/abook
+[submodule "airootfs/root/.build/dwm"]
+	path = airootfs/root/.build/dwm
+	url = https://github.com/nemo256/dwm
+[submodule "airootfs/root/.build/dmenu"]
+	path = airootfs/root/.build/dmenu
+	url = https://github.com/nemo256/dmenu
+[submodule "airootfs/root/.build/st"]
+	path = airootfs/root/.build/st
+	url = https://github.com/nemo256/st
+[submodule "airootfs/root/.build/slock"]
+	path = airootfs/root/.build/slock
+	url = https://github.com/nemo256/slock
+[submodule "airootfs/root/.build/slstatus"]
+	path = airootfs/root/.build/slstatus
+	url = https://github.com/nemo256/slstatus
