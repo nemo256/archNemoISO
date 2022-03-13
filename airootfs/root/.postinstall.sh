@@ -193,12 +193,14 @@ stow xinit
 stow yarn
 stow zathura
 
+# Making bin files executable
+chmod -R 755 $HOME/bin
+
 echo -ne "
 ------------------------------------------------------------------------------------------
                                    Neovim Configuration
 ------------------------------------------------------------------------------------------
 "
-cd $HOME
 # Adding vim-plug
 curl -fLo ${HOME}/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -296,7 +298,7 @@ echo -ne "
                                          Cleaning
 ------------------------------------------------------------------------------------------
 "
-# rm -fvr .postinstall.sh
+rm -fvr $HOME/.postinstall.sh $HOME/.env
 
 echo -ne "
 ------------------------------------------------------------------------------------------

@@ -3,6 +3,7 @@ amd-ucode
 arch-install-scripts
 archlinux-keyring
 archinstall
+archiso
 b43-fwcutter
 base
 bind-tools
@@ -70,6 +71,8 @@ mtools
 nano
 nbd
 ndisc6
+neovim
+networkmanager
 nfs-utils
 nilfs-utils
 nmap
@@ -110,7 +113,6 @@ udftools
 usb_modeswitch
 usbmuxd
 usbutils
-neovim
 virtualbox-guest-utils-nox
 vpnc
 wireless-regdb

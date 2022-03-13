@@ -100,6 +100,7 @@ pacstrap /mnt \
   arch-install-scripts \
   archlinux-keyring \
   archinstall \
+  archiso \
   b43-fwcutter \
   base \
   bind-tools \
