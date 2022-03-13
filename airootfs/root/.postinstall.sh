@@ -76,7 +76,7 @@ echo "${USERNAME}:${PASSWORD}" | chpasswd
 echo "${HOSTNAME}" > /mnt/etc/hostname
 
 if [[ -d "/sys/firmware/efi" ]]; then
-    grub-install --efi-directory=/boot ${DISK} --recheck
+    grub-install --efi-directory=/boot ${DISK} --recheck --force
 fi
 
 echo -ne "
@@ -295,6 +295,7 @@ echo -ne "
                                          Cleaning
 ------------------------------------------------------------------------------------------
 "
+# rm -fvr .postinstall.sh
 
 echo -ne "
 ------------------------------------------------------------------------------------------

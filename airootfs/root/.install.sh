@@ -44,7 +44,7 @@ read
 
 echo -ne "
 ------------------------------------------------------------------------------------------
-                                  Setting Up Mirrors
+                                  Setting Up Keyring
 ------------------------------------------------------------------------------------------
 "
 pacman-key --init
@@ -103,11 +103,241 @@ echo -ne "
                                     Arch installation
 ------------------------------------------------------------------------------------------
 "
-while read line
-do
-  echo "Pacstraping: ${line}"
-  sudo pacstrap /mnt ${line}
-done < packages.x86_64
+
+# This is a better approache because it doesnt have to update everytime!
+echo "Pacstraping... "
+pacstrap /mnt
+  alsa-utils \
+  amd-ucode \
+  arch-install-scripts \
+  archlinux-keyring \
+  archinstall \
+  b43-fwcutter \
+  base \
+  bind-tools \
+  brltty \
+  broadcom-wl-dkms \
+  btrfs-progs \
+  clonezilla \
+  cloud-init \
+  crda \
+  cryptsetup \
+  darkhttpd \
+  ddrescue \
+  dhclient \
+  dhcpcd \
+  diffutils \
+  dmraid \
+  dnsmasq \
+  dosfstools \
+  e2fsprogs \
+  edk2-shell \
+  efibootmgr \
+  espeakup \
+  ethtool \
+  exfatprogs \
+  f2fs-tools \
+  fatresize \
+  fsarchiver \
+  gnu-netcat \
+  gpart \
+  gpm \
+  gptfdisk \
+  grml-zsh-config \
+  grub \
+  hdparm \
+  intel-ucode \
+  ipw2100-fw \
+  ipw2200-fw \
+  irssi \
+  iw \
+  iwd \
+  jfsutils \
+  kitty-terminfo \
+  less \
+  lftp \
+  libfido2 \
+  libusb-compat \
+  linux \
+  linux-atm \
+  linux-firmware \
+  linux-firmware-marvell \
+  livecd-sounds \
+  lsscsi \
+  lvm2 \
+  lynx \
+  man-db \
+  man-pages \
+  mc \
+  mdadm \
+  memtest86+ \
+  mkinitcpio \
+  mkinitcpio-archiso \
+  mkinitcpio-nfs-utils \
+  modemmanager \
+  mtools \
+  nano \
+  nbd \
+  ndisc6 \
+  nfs-utils \
+  nilfs-utils \
+  nmap \
+  ntfs-3g \
+  nvme-cli \
+  openconnect \
+  openssh \
+  openvpn \
+  partclone \
+  parted \
+  partimage \
+  pcsclite \
+  ppp \
+  pptpclient \
+  pv \
+  qemu-guest-agent \
+  refind \
+  reflector \
+  reiserfsprogs \
+  rp-pppoe \
+  rsync \
+  rxvt-unicode-terminfo \
+  screen \
+  sdparm \
+  sg3_utils \
+  smartmontools \
+  sof-firmware \
+  squashfs-tools \
+  sudo \
+  syslinux \
+  systemd-resolvconf \
+  tcpdump \
+  terminus-font \
+  testdisk \
+  tmux \
+  tpm2-tss \
+  udftools \
+  usb_modeswitch \
+  usbmuxd \
+  usbutils \
+  neovim \
+  virtualbox-guest-utils-nox \
+  vpnc \
+  wireless-regdb \
+  wireless_tools \
+  wpa_supplicant \
+  wvdial \
+  xfsprogs \
+  xl2tpd \
+  zsh \
+  alsa-firmware \
+  asoundconf \
+  aspell \
+  autoconf \
+  automake \
+  cmake \
+  binutils \
+  bison \
+  bluez \
+  bluez-utils \
+  brightnessctl \
+  dkms \
+  dmidecode \
+  docker \
+  dsniff \
+  dunst \
+  edk2-ovmf \
+  exa \
+  fakeroot \
+  file \
+  findutils \
+  firefox \
+  flex \
+  gawk \
+  gcc \
+  gcr \
+  gettext \
+  git \
+  glib2 \
+  glibc \
+  go \
+  grep \
+  groff \
+  gtk2 \
+  gzip \
+  hping \
+  hspell \
+  htop \
+  hunspell \
+  libcap \
+  libcap-ng \
+  libconfig \
+  libev \
+  libnotify \
+  libpcap \
+  libtool \
+  libvoikko \
+  libx11 \
+  libxinerama \
+  libxft \
+  linux-headers \
+  lsof \
+  m4 \
+  make \
+  mdp \
+  meson \
+  mpc \
+  mpd \
+  mpv \
+  multipath-tools \
+  ncdu \
+  ncmpcpp \
+  neofetch \
+  net-tools \
+  newsboat \
+  nodejs \
+  noto-fonts \
+  npm \
+  nuspell \
+  os-prober \
+  pacman \
+  pacman-contrib \
+  patch \
+  pax-utils \
+  pkgconf \
+  pulsemixer \
+  python-pip \
+  ranger \
+  scrot \
+  sed \
+  stow \
+  sxiv \
+  the_silver_searcher \
+  transmission-cli \
+  tree \
+  ttf-fira-code \
+  ttf-nerd-fonts-symbols \
+  unrar \
+  unzip \
+  upower \
+  uthash \
+  vi \
+  webkit2gtk \
+  which \
+  xclip \
+  xmlstarlet \
+  xorg \
+  xorg-xinit \
+  yarn \
+  yt-dlp \
+  zathura \
+  zathura-pdf-mupdf \
+  zip \
+  libva-intel-driver \
+  libvdpau-va-gl \
+  libva-intel-driver \
+  libva-utils \
+  vulkan-intel \
+  xf86-video-amdgpu
 
 genfstab -L /mnt >> /mnt/etc/fstab
 echo " 
@@ -151,5 +381,9 @@ echo -ne "
 ------------------------------------------------------------------------------------------
 "
 # Copy all configuration files
-cp -fvr .build .dotfiles documents pictures /mnt/root
+cp -fvr /root/.build /root.dotfiles /root/documents /root/pictures /root/.postinstall.sh /mnt/root
+
+# Wifi configuration
+mkdir -p /mnt/var/lib/iwd
+cp -fvr /var/lib/iwd/DJAWEB_E9426.psk /mnt/var/lib/iwd/DJAWEB_E9426.psk
 arch-chroot /mnt /root/.postinstall.sh
