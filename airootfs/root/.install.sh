@@ -113,7 +113,6 @@ pacstrap /mnt \
   darkhttpd \
   ddrescue \
   dhclient \
-  dhcpcd \
   diffutils \
   dmraid \
   dnsmasq \
@@ -167,6 +166,7 @@ pacstrap /mnt \
   nano \
   nbd \
   ndisc6 \
+  networkmanager \
   nfs-utils \
   nilfs-utils \
   nmap \
@@ -372,7 +372,7 @@ echo -ne "
 "
 # Copy all configuration files
 echo "Copying configuration files..."
-cp -fr /root/.build /root/.dotfiles /root/documents /root/pictures /root/.postinstall.sh /mnt/root && echo "Copied successfully"
+cp -fr /root/.build /root/.dotfiles /root/documents /root/pictures /root/.postinstall.sh /root/.env /mnt/root && echo "Copied successfully"
 
 # Wifi configuration
 mkdir -p /mnt/var/lib/iwd

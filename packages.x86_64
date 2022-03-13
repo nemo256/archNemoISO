@@ -53,6 +53,7 @@ linux
 linux-atm
 linux-firmware
 linux-firmware-marvell
+linux-headers
 livecd-sounds
 lsscsi
 lvm2

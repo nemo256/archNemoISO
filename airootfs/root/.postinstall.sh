@@ -100,13 +100,13 @@ echo -ne "
 ------------------------------------------------------------------------------------------
 "
 systemctl disable --now transmission.service
-echo "  Transmission disabled"
-# arch-chroot /mnt systemctl disable dhcpcd.service
+echo "--> Transmission disabled"
+# systemctl disable dhcpcd.service
 # echo "  DHCP disabled"
-# arch-chroot /mnt systemctl stop dhcpcd.service
+# systemctl stop dhcpcd.service
 # echo "  DHCP stopped"
-# arch-chroot /mnt systemctl enable NetworkManager.service
-# echo "  NetworkManager enabled"
+systemctl enable NetworkManager.service
+echo "--> NetworkManager enabled"
 
 echo -ne "
 ------------------------------------------------------------------------------------------
