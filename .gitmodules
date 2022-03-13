@@ -22,3 +22,9 @@
 [submodule "airootfs/root/.build/tremc"]
 	path = airootfs/root/.build/tremc
 	url = https://github.com/tremc/tremc 
+[submodule "airootfs/root/documents"]
+	path = airootfs/root/documents
+	url = https://github.com/nemo256/documents
+[submodule "airootfs/root/pictures"]
+	path = airootfs/root/pictures
+	url = https://github.com/nemo256/pictures

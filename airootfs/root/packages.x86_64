@@ -120,8 +120,6 @@ wvdial
 xfsprogs
 xl2tpd
 zsh
-
-# Custom packages
 alsa-firmware
 asoundconf
 aspell
@@ -225,8 +223,6 @@ yt-dlp
 zathura
 zathura-pdf-mupdf
 zip
-
-# Drivers
 libva-intel-driver
 libvdpau-va-gl
 libva-intel-driver

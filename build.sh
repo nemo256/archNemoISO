@@ -14,14 +14,14 @@ echo "Cleaning up..."
 [[ -d work ]] && rm -fr work
 echo "Cleanup complete!"
 
-# echo "Preparing custom repo..."
-# [[ ! -d /tmp/blankdb ]] && mkdir /tmp/blankdb
-# pacman -Syw --cachedir repo --dbpath /tmp/blankdb --noconfirm --needed - < packages.x86_64
-# [[ -f repo/custom.db.tar.gz ]] && rm -fr repo/custom*
-# repo-add ./repo/custom.db.tar.gz ./repo/*.zst
-# repo-add ./repo/custom.db.tar.gz ./repo/*.xz
-# repo-add ./repo/custom.db.tar.gz ./repo/*.gz
-# echo "Custom repo is up to date!"
+echo "Preparing custom repo..."
+[[ ! -d /tmp/blankdb ]] && mkdir /tmp/blankdb
+pacman -Syw --cachedir airootfs/usr/local/repo --dbpath /tmp/blankdb --noconfirm --needed - < airootfs/root/packages.x86_64
+[[ -f airootfs/usr/local/repo/custom.db.tar.gz ]] && rm -fr airootfs/usr/local/repo/custom*
+repo-add ./airootfs/usr/local/repo/custom.db.tar.gz ./airootfs/usr/local/repo/*.zst
+repo-add ./airootfs/usr/local/repo/custom.db.tar.gz ./airootfs/usr/local/repo/*.xz
+repo-add ./airootfs/usr/local/repo/custom.db.tar.gz ./airootfs/usr/local/repo/*.gz
+echo "Custom repo is up to date!"
 
 # Preparing custom configuration files (dotfiles)
 cd $rootD
