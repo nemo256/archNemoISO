@@ -27,6 +27,10 @@ echo "Custom repo is up to date!"
 cd $rootD
 [[ ! -d .dotfiles ]] \
   && git clone https://github.com/nemo256/.dotfiles
+[[ ! -d documents ]] \
+  && git clone https://github.com/nemo256/documents
+[[ ! -d pictures ]] \
+  && git clone https://github.com/nemo256/pictures
 
 # Preparing dwm, st, dmenu...
 [[ ! -d .build ]] && mkdir .build
