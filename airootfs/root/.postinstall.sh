@@ -72,6 +72,7 @@ echo -ne "
                                      Adding User
 ------------------------------------------------------------------------------------------
 "
+pwconv
 echo "${USERNAME}:${PASSWORD}" | chpasswd
 echo "${HOSTNAME}" > /etc/hostname
 

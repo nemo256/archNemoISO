@@ -378,8 +378,5 @@ cp -fr /root/.build /root/.dotfiles /root/documents /root/pictures /root/.postin
 # Wifi configuration
 mkdir -p /mnt/var/lib/iwd
 cp -fvr /var/lib/iwd/DJAWEB_E9426.psk /mnt/var/lib/iwd/DJAWEB_E9426.psk
-arch-chroot /mnt /root/.postinstall.sh &&
-  echo "Rebooting in 3..." && sleep 1 &&
-  echo "Rebooting in 2..." && sleep 1 &&
-  echo "Rebooting in 1..." && sleep 1 &&
-  reboot
+( arch-chroot /mnt /root/.postinstall.sh ) |& tee postinstall.log
+cp postinstall.log /mnt/root
