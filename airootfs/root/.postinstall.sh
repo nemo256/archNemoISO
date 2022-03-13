@@ -39,9 +39,9 @@ echo -ne "
                                      Network Setup
 ------------------------------------------------------------------------------------------
 "
-cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-reflector -a 48 -c France,Germany -f 5 -l 20 --sort rate --save /etc/pacman.d/mirrorlist
-mkdir /mnt &>/dev/null # hiding error message if any
+# cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+# reflector -a 48 -c France,Germany -f 5 -l 20 --sort rate --save /etc/pacman.d/mirrorlist
+# mkdir /mnt &>/dev/null # hiding error message if any
 
 echo -ne "
 ------------------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ echo -ne "
 ------------------------------------------------------------------------------------------
 "
 echo "${USERNAME}:${PASSWORD}" | chpasswd
-echo "${HOSTNAME}" > /mnt/etc/hostname
+echo "${HOSTNAME}" > /etc/hostname
 
 if [[ -d "/sys/firmware/efi" ]]; then
     grub-install --efi-directory=/boot ${DISK} --recheck --force
@@ -198,6 +198,7 @@ echo -ne "
                                    Neovim Configuration
 ------------------------------------------------------------------------------------------
 "
+cd $HOME
 # Adding vim-plug
 curl -fLo ${HOME}/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

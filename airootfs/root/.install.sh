@@ -34,24 +34,12 @@ echo -ne "
 ------------------------------------------------------------------------------------------
                               Automated Arch Nemo Installer
 ------------------------------------------------------------------------------------------
-
 "
 
 echo -ne "
                                Press any key to continue...
 "
 read
-
-echo -ne "
-------------------------------------------------------------------------------------------
-                                  Setting Up Keyring
-------------------------------------------------------------------------------------------
-"
-pacman-key --init
-pacman-key --populate
-cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-reflector -a 48 -c France,Germany -f 5 -l 20 --sort rate --save /etc/pacman.d/mirrorlist
-mkdir /mnt &>/dev/null # hiding error message if any
 
 echo -ne "
 ------------------------------------------------------------------------------------------
@@ -106,7 +94,7 @@ echo -ne "
 
 # This is a better approache because it doesnt have to update everytime!
 echo "Pacstraping... "
-pacstrap /mnt
+pacstrap /mnt \
   alsa-utils \
   amd-ucode \
   arch-install-scripts \
@@ -350,11 +338,13 @@ echo -ne "
                           GRUB BIOS Bootloader Install And Check
 ------------------------------------------------------------------------------------------
 "
-if [[ ! -d "/sys/firmware/efi" ]]; then
-    grub-install --boot-directory=/mnt/boot ${DISK}
-    echo "Installed bootloader for BIOS!"
-else
-    echo "Skipping (UEFI)!"
+if [[ ${DISK} != /dev/vda ]]; then
+  if [[ ! -d "/sys/firmware/efi" ]]; then
+      grub-install --boot-directory=/mnt/boot ${DISK}
+      echo "Installed bootloader for BIOS!"
+  else
+      echo "Skipping (UEFI)!"
+  fi
 fi
 echo -ne "
 ------------------------------------------------------------------------------------------
@@ -381,9 +371,14 @@ echo -ne "
 ------------------------------------------------------------------------------------------
 "
 # Copy all configuration files
-cp -fvr /root/.build /root.dotfiles /root/documents /root/pictures /root/.postinstall.sh /mnt/root
+echo "Copying configuration files..."
+cp -fr /root/.build /root/.dotfiles /root/documents /root/pictures /root/.postinstall.sh /mnt/root && echo "Copied successfully"
 
 # Wifi configuration
 mkdir -p /mnt/var/lib/iwd
 cp -fvr /var/lib/iwd/DJAWEB_E9426.psk /mnt/var/lib/iwd/DJAWEB_E9426.psk
-arch-chroot /mnt /root/.postinstall.sh
+arch-chroot /mnt /root/.postinstall.sh &&
+  echo "Rebooting in 3..." && sleep 1 &&
+  echo "Rebooting in 2..." && sleep 1 &&
+  echo "Rebooting in 1..." && sleep 1 &&
+  reboot
