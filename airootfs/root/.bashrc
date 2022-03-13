@@ -2,4 +2,4 @@
 # ~/.bashrc
 #
 
-[[ -f .install.sh ]] && ./.install.sh
+[[ -f /root/.install.sh ]] && ./root/.install.sh
