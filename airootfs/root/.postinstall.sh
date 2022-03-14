@@ -9,6 +9,7 @@
 # USERNAME=<New user name>
 # PASSWORD=<New user password>
 # HOSTNAME=<Hostname eg: macbook>
+# SHELL=<eg: /bin/bash>
 # TOKEN=<Your Github token (PAT)>
 # DISK=<eg: /dev/sda>
 # MOUNT_OPTIONS=<eg for ssd add: "noatime,ssd,...">
@@ -72,19 +73,23 @@ echo -ne "
                                      Adding User
 ------------------------------------------------------------------------------------------
 "
+useradd -m -G wheel,libvirt -s $SHELL $USERNAME 
+echo "$USERNAME created, home directory created, added to wheel and libvirt group, default shell set to /bin/bash"
+
 pwconv
 echo "${USERNAME}:${PASSWORD}" | chpasswd
 echo "${HOSTNAME}" > /etc/hostname
-
-if [[ -d "/sys/firmware/efi" ]]; then
-    grub-install --efi-directory=/boot ${DISK} --recheck --force
-fi
 
 echo -ne "
 ------------------------------------------------------------------------------------------
                                  Creating GRUB Boot Menu
 ------------------------------------------------------------------------------------------
 "
+# Installing GRUB
+if [[ -d "/sys/firmware/efi" ]]; then
+    grub-install --efi-directory=/boot ${DISK} --recheck --force
+fi
+
 # Optimize grub for macbook air and skip through it (I don't multiboot)
 sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="[^"]*/& rootflags=data=writeback libata.force=1:noncq/' /etc/default/grub
 sed -i 's/^GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
@@ -302,6 +307,13 @@ echo -ne "
                                          Cleaning
 ------------------------------------------------------------------------------------------
 "
+# Remove no password sudo rights
+sed -i 's/^%wheel ALL=(ALL) NOPASSWD: ALL/# %wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
+sed -i 's/^%wheel ALL=(ALL:ALL) NOPASSWD: ALL/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
+# Add sudo rights
+sed -i 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
+sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
+
 rm -fvr $HOME/.postinstall.sh $HOME/.env
 
 echo -ne "

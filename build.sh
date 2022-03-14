@@ -72,9 +72,10 @@ cd $currWD
 # .env template file
 echo "Preparing custom configuration files..."
 [[ ! -f airootfs/root/.env ]] && echo -ne '
-USERNAME=root
+USERNAME=nemo
 PASSWORD=
 HOSTNAME=macbook
+SHELL=/bin/zsh
 TOKEN=
 DISK=/dev/sda
 MOUNT_OPTIONS="noatime,compress=zstd,ssd,commit=120"

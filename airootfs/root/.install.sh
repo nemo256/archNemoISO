@@ -12,6 +12,7 @@ setfont ter-v32b
 # USERNAME=<New user name>
 # PASSWORD=<New user password>
 # HOSTNAME=<Hostname eg: macbook>
+# SHELL=<eg: /bin/bash>
 # TOKEN=<Your Github token (PAT)>
 # DISK=<eg: /dev/sda>
 # MOUNT_OPTIONS=<eg for ssd add: "noatime,ssd,...">
