@@ -214,6 +214,8 @@ curl -fLo ${HOME}/.vim/autoload/plug.vim --create-dirs \
 # Installing neovim plugins
 nvim -c 'PlugInstall | q! | q!'
 
+# chmod +x $HOME/.config/nvim/autoload/plugged/fzf/install
+
 echo -ne "
 ------------------------------------------------------------------------------------------
                                    Ranger Configuration
