@@ -72,7 +72,7 @@ cd $currWD
 # .env template file
 echo "Preparing custom configuration files..."
 [[ ! -f airootfs/root/.env ]] && echo -ne '
-USERNAME=nemo
+USERNAME=root
 PASSWORD=
 HOSTNAME=macbook
 SHELL=/bin/zsh

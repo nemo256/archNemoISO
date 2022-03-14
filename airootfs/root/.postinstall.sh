@@ -59,8 +59,8 @@ ln -s /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
 localectl --no-ask-password set-keymap ${KEYMAP}
 
 # Add sudo no password rights
-sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
-sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
+# sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
+# sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
 
 # Add parallel downloading
 sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
@@ -73,8 +73,8 @@ echo -ne "
                                      Adding User
 ------------------------------------------------------------------------------------------
 "
-useradd -m -G wheel,libvirt -s $SHELL $USERNAME 
-echo "$USERNAME created, home directory created, added to wheel and libvirt group, default shell set to /bin/bash"
+# useradd -m -G wheel,libvirt -s $SHELL $USERNAME 
+# echo "$USERNAME created, home directory created, added to wheel and libvirt group, default shell set to /bin/bash"
 
 pwconv
 echo "${USERNAME}:${PASSWORD}" | chpasswd
