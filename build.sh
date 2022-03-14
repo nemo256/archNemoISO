@@ -24,6 +24,7 @@ repo-add ./airootfs/usr/local/repo/custom.db.tar.gz ./airootfs/usr/local/repo/*.
 echo "Custom repo is up to date!"
 
 # Preparing custom configuration files (dotfiles)
+echo "Preparing custom configuration files..."
 cd $rootD
 [[ ! -d .dotfiles ]] \
   && git clone https://github.com/nemo256/.dotfiles
@@ -63,9 +64,24 @@ cd ../slock && git pull
 cd ../abook && git pull
 cd ../grabc && git pull
 cd ../tremc && git pull
+echo "Custom configuration files are up to date!"
 
 # Go back to project directory
 cd $currWD
 
-# start building the iso
+# .env template file
+echo "Preparing custom configuration files..."
+[[ ! -f airootfs/root/.env ]] && echo -ne '
+USERNAME=root
+PASSWORD=
+HOSTNAME=macbook
+TOKEN=
+DISK=/dev/sda
+MOUNT_OPTIONS="noatime,compress=zstd,ssd,commit=120"
+FS=ext4
+TIMEZONE=Africa/Algiers
+KEYMAP=us
+' > airootfs/root/.env
+
+# Start building the iso
 mkarchiso -v .

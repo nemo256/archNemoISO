@@ -223,13 +223,16 @@ echo -ne "
                                    Firefox Configuration
 ------------------------------------------------------------------------------------------
 "
+# To generate config folder
+firefox
+
 # Saving path to prefs.js file
-# prefs=$(find ${HOME}/.mozilla/ -name '*prefs.js')
+prefs=$(find $HOME/.mozilla/ -name '*prefs.js')
 
 # Adding magnet link support
-# echo -ne '
-# user_pref("network.protocol-handler.expose.magnet", false);
-# ' >> $prefs
+echo -ne '
+user_pref("network.protocol-handler.expose.magnet", false);
+' >> $prefs
 
 echo -ne "
 ------------------------------------------------------------------------------------------
