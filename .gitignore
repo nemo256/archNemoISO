@@ -1,4 +1,8 @@
 work
 out
 airootfs/root/.env
+airootfs/root/.dotfiles
+airootfs/root/.build
+airootfs/root/Documents
+airootfs/root/Pictures
 airootfs/usr/local/repo

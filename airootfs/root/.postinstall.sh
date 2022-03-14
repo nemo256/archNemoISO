@@ -154,7 +154,7 @@ echo -ne "
                                  Restoring Home Directory
 ------------------------------------------------------------------------------------------
 "
-cd $HOME && mkdir downloads videos music work
+cd $HOME && mkdir Downloads Videos Music Work
 cd $HOME
 
 echo -ne "

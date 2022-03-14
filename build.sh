@@ -28,10 +28,10 @@ echo "Preparing custom configuration files..."
 cd $rootD
 [[ ! -d .dotfiles ]] \
   && git clone https://github.com/nemo256/.dotfiles
-[[ ! -d documents ]] \
-  && git clone https://github.com/nemo256/documents
-[[ ! -d pictures ]] \
-  && git clone https://github.com/nemo256/pictures
+[[ ! -d Documents ]] \
+  && git clone https://github.com/nemo256/Documents
+[[ ! -d Pictures ]] \
+  && git clone https://github.com/nemo256/Pictures
 
 # Preparing dwm, st, dmenu...
 [[ ! -d .build ]] && mkdir .build
@@ -75,7 +75,7 @@ echo "Preparing custom configuration files..."
 USERNAME=root
 PASSWORD=
 HOSTNAME=macbook
-SHELL=/bin/zsh
+SHELL=/bin/bash
 TOKEN=
 DISK=/dev/sda
 MOUNT_OPTIONS="noatime,compress=zstd,ssd,commit=120"
