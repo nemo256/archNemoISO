@@ -107,11 +107,9 @@ echo -ne "
 "
 systemctl disable --now transmission.service
 echo "--> Transmission disabled"
-# systemctl disable dhcpcd.service
-# echo "  DHCP disabled"
-# systemctl stop dhcpcd.service
-# echo "  DHCP stopped"
-systemctl enable NetworkManager.service
+systemctl disable --now dhcpcd.service
+echo "  DHCP disabled"
+systemctl enable --now NetworkManager.service
 echo "--> NetworkManager enabled"
 
 echo -ne "
