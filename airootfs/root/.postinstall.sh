@@ -223,7 +223,9 @@ echo -ne "
 "
 # Adding devicons to ranger
 git clone https://github.com/alexanderjeurissen/ranger_devicons \
-  ~/.config/ranger/plugins/ranger_devicons
+  $HOME/.config/ranger/plugins/ranger_devicons
+
+python -m $HOME/.config/ranger/plugins/ranger_devicons/devicons
 
 echo -ne "
 ------------------------------------------------------------------------------------------
