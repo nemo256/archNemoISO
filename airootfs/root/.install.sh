@@ -293,6 +293,7 @@ pacstrap /mnt \
   pacman-contrib \
   patch \
   pax-utils \
+  picom \
   pkgconf \
   pulsemixer \
   python-pip \

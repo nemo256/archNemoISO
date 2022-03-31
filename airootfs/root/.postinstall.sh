@@ -189,6 +189,7 @@ stow neofetch
 stow newsboat
 stow notmuch
 stow nvim
+stow picom
 stow ranger
 stow transmission-daemon
 stow tremc
