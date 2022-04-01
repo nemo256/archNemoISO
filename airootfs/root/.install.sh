@@ -328,7 +328,7 @@ pacstrap /mnt \
   libva-intel-driver \
   libva-utils \
   vulkan-intel \
-  xf86-video-amdgpu
+  xf86-video-intel
 
 genfstab -L /mnt >> /mnt/etc/fstab
 echo " 
