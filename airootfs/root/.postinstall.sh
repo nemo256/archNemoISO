@@ -142,6 +142,7 @@ cd ../st && make clean install
 cd ../dmenu && make clean install
 cd ../slock && make clean install
 cd ../slstatus && make clean install
+cd ../tty-clock && make && make install
 cd ../grabc && make && make install
 cd ../tremc && make install
 yarn global add @aweary/alder

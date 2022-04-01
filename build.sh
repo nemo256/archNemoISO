@@ -46,8 +46,8 @@ cd .build
   && git clone https://github.com/nemo256/slstatus
 [[ ! -d slock ]] \
   && git clone https://github.com/nemo256/slock
-[[ ! -d abook ]] \
-  && git clone https://github.com/hhirsch/abook
+[[ ! -d tty-clock ]] \
+  && git clone https://github.com/xorg62/tty-clock
 [[ ! -d grabc ]] \
   && git clone https://github.com/muquit/grabc
 [[ ! -d tremc ]] \
