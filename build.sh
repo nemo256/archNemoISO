@@ -63,6 +63,7 @@ cd ../st && git pull
 cd ../dmenu && git pull
 cd ../slstatus && git pull
 cd ../slock && git pull
+cd ../ani-cli && git pull
 cd ../abook && git pull
 cd ../grabc && git pull
 cd ../tremc && git pull
