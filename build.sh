@@ -46,6 +46,8 @@ cd .build
   && git clone https://github.com/nemo256/slstatus
 [[ ! -d slock ]] \
   && git clone https://github.com/nemo256/slock
+[[ ! -d ani-cli ]] \
+  && git clone https://github.com/pystardust/ani-cli
 [[ ! -d tty-clock ]] \
   && git clone https://github.com/xorg62/tty-clock
 [[ ! -d grabc ]] \
