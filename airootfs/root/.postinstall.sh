@@ -142,7 +142,7 @@ cd ../st && make clean install
 cd ../dmenu && make clean install
 cd ../slock && make clean install
 cd ../slstatus && make clean install
-cd ../ani-cli && cp ani-cli /usr/local/bin/ani-cli
+cd ../ani-cli && chmod +x ani-cli && cp ani-cli /usr/local/bin/ani-cli
 cd ../tty-clock && make && make install
 cd ../grabc && make && make install
 cd ../tremc && make install

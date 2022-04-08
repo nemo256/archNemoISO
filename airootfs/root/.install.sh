@@ -97,7 +97,6 @@ echo -ne "
 echo "Pacstraping... "
 pacstrap /mnt \
   alsa-utils \
-  amd-ucode \
   arch-install-scripts \
   archlinux-keyring \
   archinstall \
