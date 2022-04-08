@@ -32,6 +32,8 @@ cd $rootD
   && git clone https://github.com/nemo256/Documents
 [[ ! -d Pictures ]] \
   && git clone https://github.com/nemo256/Pictures
+[[ ! -d Music ]] \
+  && git clone https://github.com/nemo256/Music
 
 # Preparing dwm, st, dmenu...
 [[ ! -d .build ]] && mkdir .build
@@ -58,6 +60,9 @@ cd $rootD
 
 # Pulling latest versions
 cd .dotfiles && git pull
+cd ../Documents && git pull
+cd ../Pictures && git pull
+cd ../Music && git pull
 cd ../.build/dwm && git pull
 cd ../st && git pull
 cd ../dmenu && git pull
