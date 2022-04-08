@@ -226,7 +226,9 @@ echo -ne "
 git clone https://github.com/alexanderjeurissen/ranger_devicons \
   $HOME/.config/ranger/plugins/ranger_devicons
 
-python -m $HOME/.config/ranger/plugins/ranger_devicons/devicons
+cd $HOME/.config/ranger/plugins/ranger_devicons/
+python -m devicons
+cd $HOME
 
 echo -ne "
 ------------------------------------------------------------------------------------------
@@ -234,15 +236,15 @@ echo -ne "
 ------------------------------------------------------------------------------------------
 "
 # To generate config folder
-firefox
+#firefox
 
 # Saving path to prefs.js file
-prefs=$(find $HOME/.mozilla/ -name '*prefs.js')
+#prefs=$(find $HOME/.mozilla/ -name '*prefs.js')
 
 # Adding magnet link support
-echo -ne '
-user_pref("network.protocol-handler.expose.magnet", false);
-' >> $prefs
+#echo -ne '
+#user_pref("network.protocol-handler.expose.magnet", false);
+#' >> $prefs
 
 echo -ne "
 ------------------------------------------------------------------------------------------
