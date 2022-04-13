@@ -127,6 +127,7 @@ pacstrap /mnt \
   f2fs-tools \
   fatresize \
   fsarchiver \
+  fzf \
   gnu-netcat \
   gpart \
   gpm \
