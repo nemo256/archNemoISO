@@ -193,6 +193,7 @@ stow notmuch
 stow nvim
 stow picom
 stow ranger
+stow sxiv
 stow transmission-daemon
 stow tremc
 stow weather-cli-nodejs
