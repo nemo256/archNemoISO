@@ -42,7 +42,7 @@ $ chmod +x build.sh
 $ ./build.sh
 ```
 
-### Now, your custom ISO is located in <out/>, and create a bootable flash drive: (eg: usb is /dev/sdb)
+### Now, your custom ISO is located in out/, and create a bootable flash drive: (eg: usb is /dev/sdb)
 ```
 $ mount /dev/sdb /mnt
 $ bsdtar -x -C /mnt -f out/archnemo-<version>.iso
