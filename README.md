@@ -1,25 +1,38 @@
-# ArchNemo ISO generator
-This is a custom arch ISO generator to build my own setup and configure it as much as possible to meet my needs!
+<div align="center">
 
+# `ArchNemo ISO generator`
+
+<h3>
+  This is a custom arch ISO generator to build my own setup and configure it as much as possible to meet my needs!
+</h3>
+
+<!-- Badges -->
+![GitHub Repo stars](https://img.shields.io/github/stars/nemo256/archNemoISO?style=for-the-badge)
+![Maintenance](https://shields.io/maintenance/yes/2022?style=for-the-badge)
+![License](https://shields.io/github/license/nemo256/archNemoISO?style=for-the-badge)
+
+<!-- Demo image -->
 ![Demo](demo.gif)
+
+</div>
 
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
-* [Setup](#setup)
-* [License](#license)
-* [Credits](#credits)
+* [Setup ⚙️](#setup)
+* [Credits 🤝](#credits)
+* [License 📑](#license)
 
-## Setup
+## Setup ⚙️
 
 ### Download the project:
-```
-$ git clone https://github.com/nemo256/archNemoISO
-$ cd archNemoISO
+```shell
+git clone https://github.com/nemo256/archNemoISO
+cd archNemoISO
 ```
 
 ### Create a <airootfs/root/.env> file:
-```
+```shell
 USERNAME=             # your username (eg: foo)
 PASSWORD=             # your password (eg: bar)
 HOSTNAME=             # your hostname (eg: thinkpad)
@@ -37,20 +50,20 @@ KEYMAP=               # keymap of the keyboard (eg: us, fr, es...)
 - You can also add any personal directories and custom files to add them directly to your custom build, path is airootfs/root/<here>.
 
 ### Finally, just make build.sh executable and run it to create your custom arch build:
-```
-$ chmod +x build.sh
-$ ./build.sh
+```shell
+chmod +x build.sh
+./build.sh
 ```
 
 ### Now, your custom ISO is located in out/, and create a bootable flash drive: (eg: usb is /dev/sdb)
-```
-$ mount /dev/sdb /mnt
-$ bsdtar -x -C /mnt -f out/archnemo-<version>.iso
+```shell
+mount /dev/sdb /mnt
+bsdtar -x -C /mnt -f out/archnemo-<version>.iso
 ```
 
-## License
-- Please read archNemoISO/LICENSE.
-- If you're too lazy to read, do anything you want with this project and don't forget to give credits to me, and the developers of the [archiso](https://github.com/archlinux/archiso) tool.
-
-## Credits
+## Credits 🤝
 - Credits go to the developers of [archiso](https://github.com/archlinux/archiso).
+
+## License 📑
+- Please read [archNemoISO/LICENSE](https://github.com/nemo256/archNemoISO/blob/master/LICENSE)
+- If you're too lazy to read, do anything you want with this project and don't forget to give credits to me, and the developers of the [archiso](https://github.com/archlinux/archiso) tool.
