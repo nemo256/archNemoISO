@@ -66,4 +66,3 @@ bsdtar -x -C /mnt -f out/archnemo-<version>.iso
 
 ## License 📑
 - Please read [archNemoISO/LICENSE](https://github.com/nemo256/archNemoISO/blob/master/LICENSE)
-- If you're too lazy to read, do anything you want with this project and don't forget to give credits to me, and the developers of the [archiso](https://github.com/archlinux/archiso) tool.
